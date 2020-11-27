@@ -1,22 +1,32 @@
+%2.	Background
+%Background information needed to understand the technical details in the rest of the report
 \section{Method}
-The dataset provided contained sale history of 60 different russian shops. It contained over 22 000 different shops over a time period of 33 month.
 
-The data that was provided was in the form of large CSV documents.
-
-In physics, the Navier–Stokes equations, named after Claude-Louis Navier and George Gabriel Stokes, describe the motion of viscous fluid substances.
-
-\autoref{eq:Incompressible Navier-Stokes} shows the incompressible Navier-Stokes equations using tensor notation.
+The sales history dataset provided contained the sale history of 60 different Russian shops. It contained daily sales of over 22 000 different items over the time of 33 months. Totaling about 3 million listings. Features also included was date, item price and item category.
+\newline
+The data that was provided was in the form of large \emph{csv} documents. Most of these contained only supplemental information about the names of items, categories and shop.all the data used for training was in \empth{salesTrain}. The Python library \emph{pandas} was used to read this large \emph{csv} file.
+\newline
+For a given month and a given store could have sold the same item more than once. Therefore the data was grouped by shop, month, and item. This way each item had only one data point for each shop and month.
+\newline
+The covariance matrix of the data was calculated. This was used to make sure the features was not strongly dependent on each other. Each variable should not be determinable from other variables in the data.
+\newline
+The data was split into a training and a testing data.
+\newline
+The performance of a given regression model was measured using R-squared on the testing dataset. R-squared calculates the proportion of the variation in the test data that is explained by the regression (Eq \ref{eq:R2}). If R-squared is 1, all of the variation in the test data could be explained by the regression model.
 
 \begin{equation}
-    \frac{\partial u_i}{\partial t} + u_j \frac{\partial u_i}{\partial x_j} = -\frac{1}{\rho} \frac{\partial P}{\partial x_i} + \nu \frac{\partial^2 u_i}{\partial x_j^2}
-    \label{eq:Incompressible Navier-Stokes}
+    R^2 = 1-\frac{Var(\text{Unexplained})}{Var(\text{Explained})}
+    \label{eq:R2}
+\end{equation}
+\newline
+The R-squared seen in the results is the adjusted R-squared (Eq \ref{eq:R2a}). It is adjusted for the number of data points ($n$) and the number of regressors ($k$). Unlike the normal R-squared, the value can be negative when the $R^2$ term is close to 0 meaning the model is very inaccurate.
+
+\begin{equation}
+R_{a d j}^{2}=1-\frac{\left(1-R^{2}\right)(n-1)}{n-k-1}
+\label{eq:R2a}
 \end{equation}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{Images/CylinderImage.jpg}
-    \caption[Caption used in list of tables]{Caption written below figure.}
-    \label{fig:flow around cylinder}
-    \source{Insert image source here}
-\end{figure}
+
+
+
 
